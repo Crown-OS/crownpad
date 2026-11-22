@@ -1,0 +1,41 @@
+[package]
+name = "crownpad"
+version = "0.2.0"
+edition = "2024"
+
+[dependencies]
+crownui = { path = "../crownui/crownui", default-features = false, features = ["wayland", "impeller", "static", "tokio"] }
+crownconfig = { path = "../crownui/crownconfig" }
+crowndock = { path = "../crowndock" }
+motion = { path = "../crownui/motion" }
+input = { path = "../crownui/input" }
+crownos-ipc = { path = "../crownos-ipc" }
+
+anyhow = "1"
+thiserror = "2"
+log = "0.4"
+env_logger = "0.11"
+serde = { version = "1", features = ["derive", "rc"] }
+tokio = { version = "1", features = ["rt", "sync", "time"] }
+zbus = { version = "5", default-features = false, features = ["tokio"] }
+
+freedesktop_entry_parser = "1.3"
+freedesktop-icons = "0.4"
+resvg = { version = "0.48", default-features = false }
+image = { version = "0.25", default-features = false, features = ["png"] }
+
+[dev-dependencies]
+ron = "0.12"
+capture = { path = "../crownui/capture" }
+view = { path = "../crownui/view" }
+windowing = { path = "../crownui/windowing", default-features = false }
+
+[lints.clippy]
+unwrap_used = "warn"
+expect_used = "warn"
+dbg_macro = "warn"
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = "symbols"
